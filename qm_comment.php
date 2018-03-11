@@ -52,7 +52,53 @@ class QmComments {
 	}
 	
 	function createRow() {
-	
+	if ( !empty($_POST)) { 
+		
+			$commentError = null;
+			$ratingError = null;
+			
+			$per = $_POST['per'];
+			$ques = $_POST['ques'];
+			$comment = $_POST['comment'];
+			$rating = $_POST['rating'];
+			
+			// validate user input
+			$valid = true;
+			if (empty($comment)) {
+				$commentError = 'Please enter comment';
+				$valid = false;
+			}
+			if (empty($rating)) {
+				$ratingError = 'Please enter rating';
+				$valid = false;
+			} 		
+			
+			if($valid){
+				$pdo = Database::connect();
+				$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$sql = "INSERT INTO qm_comments (per_id, ques_id, comment, rating) values(?, ?, ?, ?)"; 
+				$q = $pdo->prepare($sql);
+				$q->execute(array($per, $ques, $comment, $rating));
+				Database::disconnect();
+				header('Location: qm_comments.php?oper=0&per=' . $per . '&ques=' . $ques);
+			}
+		}
+		echo '<body style="background-color: lightblue !important">';
+		echo '<div class="container"> <div class="span10 offset1">';
+		echo '<div class="row"> <h3>New Comment</h3> </div><form class="form-horizontal" action="qm_comments.php?oper=1" method="post">';
+		echo '<div class="control-group' . !empty($commentError)?'error':'' . '"><input type="hidden" name="per" value="' . $_GET['per'] . !empty($comment)?$comment:''  . '">';
+		if (!empty($commentError))
+			echo '<span class="help-inline">' . $commentError . '</span>';
+		
+		echo '<div class="control-group' . !empty($ratingError)?'error':'' . '"><input type="hidden" name="ques" value="' . $_GET['ques'] . !empty($rating)?$rating:'' . '">';
+		if (!empty($ratingError))
+			echo '<span class="help-inline">' . $ratingError . '</span>';
+		echo '<div class="form-group"><label for="comment">Comment: </label><input class="form-control" name="comment" id="comment"></div>';
+		echo '<div class="form-group"><label for="rating">Rating: </label><input type="numeric" class="form-control" name="rating" id="rating"></div>';
+		echo '<button type="submit" class="btn btn-success">Yes</button><span>   </span>';
+		echo '<a class="btn btn-danger" href="qm_comments.php?oper=0&per='. $_GET['per'] . '&ques=' . $_GET['ques'] . '">No</a>';
+		echo '</form></div>';
+	}
 
 	}
 	
