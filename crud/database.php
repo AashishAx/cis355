@@ -4,7 +4,7 @@ class Database
     private static $dbName = 'ashrest8' ;
     private static $dbHost = 'localhost' ;
     private static $dbUsername = 'ashrest8';
-    private static $dbUserPassword = '@nn@lozz 729';
+    private static $dbUserPassword = '';
      
     private static $cont  = null;
      
