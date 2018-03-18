@@ -9,7 +9,7 @@
 session_start(); 
 
 include '/home/gpcorser/public_html/database/header.php'; 
-include '../../database/database.php';
+include '/home/gpcorser/public_html/database/database.php';
 
 $username_error = "";
 $password_error = "";

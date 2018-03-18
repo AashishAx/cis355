@@ -4,7 +4,7 @@
 		header("Location: login.php");
 	}
 	include '/home/gpcorser/public_html/database/header.php'; 
-include '../../database/database.php';
+	include '/home/gpcorser/public_html/database/database.php';
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +18,8 @@ include '../../database/database.php';
             </div>
             <div class="row">
 			    <p>
-                    <a href="create.php" class="btn btn-success">Create</a>
-				 <a href="logout.php" class="btn btn-warning">Logout</a>
+                    <a href="create.php" class="btn btn-primary">Create</a>
+				 <a href="logout.php" class="btn btn-danger">Logout</a>
 
                 </p>
                 <table class="table table-striped table-bordered">
